@@ -1,0 +1,78 @@
+body,
+html {
+  margin: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1,
+p {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+input.text {
+  width: 90%;
+  height: 33px;
+  margin: 0 auto;
+  padding: 5px;
+  font-size: 17px;
+}
+
+form div.values-box {
+  width: 20%;
+}
+
+.value-box {
+  font-size: 17px;
+  margin-top: 22px;
+}
+
+.value {
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin: 30px auto;
+}
+
+.ranges-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ranges-box input {
+  flex: 1;
+  margin-left: 25px;
+}
+
+form select {
+  width: 90%;
+  margin: 0 auto;
+  font-size: 16px;
+  padding: 5px;
+}
+
+form button {
+  margin: 30px auto;
+  padding: 10px;
+}
