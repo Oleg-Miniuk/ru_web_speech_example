@@ -44,12 +44,22 @@
     </form>
   </section>
   <hr>
-  <section>
+  <section class="speech-recognition-section">
     <h1>Синтезатор речи</h1>
     <p>
-      Введите текст в поле ниже и нажмите кнопку "Play", чтобы прослушать запись. Выбирайте возможные голоса из списка
-      ниже
+      Нажмите на иконку микрофона, и назовите любой цвет радуги, чтобы изменить фон
     </p>
+    <div style="visibility: hidden;" class="audio-record-animation">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="microphone-wrapper">
+      <img class="microphone__image" src="microphone.png" width="50" height="50" alt="">
+      <p class="recognition-result">Результат: по умлочанию</p>
+    </div>
   </section>
   <script src="main.js"></script>
 </body>
