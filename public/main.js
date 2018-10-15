@@ -126,6 +126,16 @@ const speechRecognitionSection = document.querySelector(
 );
 const recognitionTextResult = document.querySelector('.recognition-result');
 
+function getColor(speechResult) {
+  for (let index = 0; index < colorsList.length; index += 1) {
+    if (speechResult.indexOf(colorsList[index]) !== -1) {
+      const colorKey = colorsList[index];
+      return colors[colorKey];
+    }
+  }
+  return null;
+}
+
 microphoneIcon.onclick = function() {
   recognition.start();
   console.log('Ready to receive a color command.');
@@ -138,8 +148,7 @@ recognition.onaudiostart = function() {
 
 recognition.onresult = function(event) {
   const last = event.results.length - 1;
-  const colorKey = event.results[last][0].transcript;
-  const color = colors[colorKey];
+  const color = getColor(event.results[last][0].transcript);
 
   recognitionTextResult.textContent = 'Результат: ' + color + '.';
   speechRecognitionSection.style.backgroundColor = color;
