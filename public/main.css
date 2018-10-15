@@ -153,3 +153,11 @@ hr {
 .microphone-wrapper img:hover {
   cursor: pointer;
 }
+
+.audio-record-animation__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 45px;
+  margin-top: 20px;
+}
