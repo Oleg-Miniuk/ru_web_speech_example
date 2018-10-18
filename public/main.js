@@ -3,7 +3,7 @@ const synth = window.speechSynthesis;
 
 const inputForm = document.querySelector('form');
 const inputTxt = document.querySelector('.text');
-const voiceSelect = document.querySelector('select');
+const voicesList = document.querySelector('select');
 
 const pitch = document.querySelector('#pitch');
 const pitchValue = document.querySelector('.value--pitch-value');
@@ -12,11 +12,15 @@ const rateValue = document.querySelector('.value--rate-value');
 
 let voices = [];
 
+window.onbeforeunload = function() {
+  synth.cancel();
+};
+
 function populateVoiceList() {
   voices = synth.getVoices();
   const selectedIndex =
-    voiceSelect.selectedIndex < 0 ? 0 : voiceSelect.selectedIndex;
-  voiceSelect.innerHTML = '';
+    voicesList.selectedIndex < 0 ? 0 : voicesList.selectedIndex;
+  voicesList.innerHTML = '';
   for (i = 0; i < voices.length; i++) {
     const option = document.createElement('option');
     option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
@@ -27,9 +31,9 @@ function populateVoiceList() {
 
     option.setAttribute('data-lang', voices[i].lang);
     option.setAttribute('data-name', voices[i].name);
-    voiceSelect.appendChild(option);
+    voicesList.appendChild(option);
   }
-  voiceSelect.selectedIndex = selectedIndex;
+  voicesList.selectedIndex = selectedIndex;
 }
 
 populateVoiceList();
@@ -40,9 +44,9 @@ if (speechSynthesis.onvoiceschanged !== undefined) {
 function speak() {
   if (synth.speaking) {
     console.error('speechSynthesis.speaking');
-    return;
-  }
-  if (inputTxt.value !== '') {
+    synth.cancel();
+    setTimeout(speak, 300);
+  } else if (inputTxt.value !== '') {
     const utterThis = new SpeechSynthesisUtterance(inputTxt.value);
     utterThis.onend = function(event) {
       console.log('SpeechSynthesisUtterance.onend');
@@ -50,7 +54,7 @@ function speak() {
     utterThis.onerror = function(event) {
       console.error('SpeechSynthesisUtterance.onerror');
     };
-    const selectedOption = voiceSelect.selectedOptions[0].getAttribute(
+    const selectedOption = voicesList.selectedOptions[0].getAttribute(
       'data-name'
     );
     for (i = 0; i < voices.length; i++) {
@@ -58,6 +62,20 @@ function speak() {
         utterThis.voice = voices[i];
       }
     }
+
+    utterThis.onpause = function(event) {
+      const char = event.utterance.text.charAt(event.charIndex);
+      console.log(
+        'Speech paused at character ' +
+          event.charIndex +
+          ' of "' +
+          event.utterance.text +
+          '", which is "' +
+          char +
+          '".'
+      );
+    };
+
     utterThis.pitch = pitch.value;
     utterThis.rate = rate.value;
     synth.speak(utterThis);
@@ -80,7 +98,7 @@ rate.onchange = function() {
   rateValue.textContent = rate.value;
 };
 
-voiceSelect.onchange = function() {
+voicesList.onchange = function() {
   speak();
 };
 // end of speech synthesis
@@ -99,7 +117,7 @@ const colors = {
   желтый: 'yellow',
   зеленый: 'green',
   голубой: 'blue',
-  синий: 'indigo',
+  синий: 'darkblue',
   фиолетовый: 'violet'
 };
 
