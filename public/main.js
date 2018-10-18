@@ -148,7 +148,7 @@ function getColor(speechResult) {
   for (let index = 0; index < colorsList.length; index += 1) {
     if (speechResult.indexOf(colorsList[index]) !== -1) {
       const colorKey = colorsList[index];
-      return colors[colorKey];
+      return [colorKey, colors[colorKey]];
     }
   }
   return null;
@@ -166,10 +166,10 @@ recognition.onaudiostart = function() {
 
 recognition.onresult = function(event) {
   const last = event.results.length - 1;
-  const color = getColor(event.results[last][0].transcript);
+  const colors = getColor(event.results[last][0].transcript);
 
-  recognitionTextResult.textContent = 'Результат: ' + color + '.';
-  speechRecognitionSection.style.backgroundColor = color;
+  recognitionTextResult.textContent = 'Результат: ' + colors[0];
+  speechRecognitionSection.style.backgroundColor = colors[1];
   console.log('Confidence: ' + event.results[0][0].confidence);
 };
 
