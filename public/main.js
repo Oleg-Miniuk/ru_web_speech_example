@@ -114,8 +114,8 @@ const SpeechRecognitionEvent =
 const colors = {
   красный: 'red',
   оранжевый: 'orange',
-  желтый: 'yellow',
-  зеленый: 'green',
+  жёлтый: 'yellow',
+  зелёный: 'green',
   голубой: 'blue',
   синий: 'darkblue',
   фиолетовый: 'violet'
